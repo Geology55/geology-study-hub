@@ -1,0 +1,22 @@
+name: Run Geology Hub Data Pipeline
+on:
+  workflow_dispatch: # This allows you to click a button to run the code manually
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Set up Free Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Database Tools
+        run: |
+          pip install pypdf requests youtube-transcript-api python-dotenv psycopg2-binary
+
+      - name: Execute Pipeline Script
+        run: python ingest.py
